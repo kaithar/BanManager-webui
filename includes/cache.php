@@ -17,15 +17,13 @@ if($apc_status) {
 function cache($query, $time, $folder = '', $server = array(), $name = '') {
     global $settings;
     $md5 = md5($query);
-    if($folder == '' && empty($name))
-        $file = $md5;
-    else if($folder != '' && empty($name))
-        $file = $folder.'/'.$md5;
-    else if($folder != '' && !empty($name))
-        $file = $folder.'/'.$name;
-    else if($folder == '' && !empty($name))
-        $file = $name;
-    
+    $file = '';
+    if ($folder != '') $file = $folder.'/';
+    if (!empty($name))
+        $file .= $name;
+    else
+        $file .= $md5;
+
     if($settings['apc_enabled']) {
         if(apc_exists($file))
             return apc_fetch($file);
