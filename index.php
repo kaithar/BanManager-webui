@@ -73,6 +73,7 @@ if(file_exists('settings.php')){
 }
 else{
 	errors('Unable to located the settings.php file. If you haven\'t renamed settingsRename.php yet, please go do that now to make Ban Management functional.');
+	die();
 }
 
 // IE8 frame busting, well thats the only good thing it has :P (Now supported by Firefox woot)
