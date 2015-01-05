@@ -25,6 +25,10 @@ if($apc_status) {
 
 function cache($query, $time, $folder = '', $server = array(), $name = '') {
     global $settings;
+    if ($settings['cache'] == false)
+    {
+        return doQuery($query, $server);
+    }
     $md5 = md5($query);
     $file = '';
     if ($folder != '') $file = $folder.'/';
@@ -61,6 +65,18 @@ function cache($query, $time, $folder = '', $server = array(), $name = '') {
 function createCache($query, $server, $file, $time = 0) {
     global $settings;
 
+    $data = doQuery($query, $server);
+    // Now save it
+    if(!$settings['apc_enabled'])
+        file_put_contents($file, "<?php die(); ?>\n".serialize($data)); // Create the file
+    else
+        apc_store($file, $data, $time);
+    return $data; // Return the fresh data
+}
+
+function doQuery($query, $server) {
+    global $settings;
+
     if(!empty($server)) {
         if(isset($settings['last_connection'])) {
             $diff = array_diff($settings['last_connection'], $server);
@@ -78,11 +94,7 @@ function createCache($query, $server, $file, $time = 0) {
     // Check if its only one row
     if(count($data) == 1)
         $data = $data[0];
-    // Now save it
-    if(!$settings['apc_enabled'])
-        file_put_contents($file, "<?php die(); ?>\n".serialize($data)); // Create the file
-    else
-        apc_store($file, $data, $time);
+
     return $data; // Return the fresh data
 }
 

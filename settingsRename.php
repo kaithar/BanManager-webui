@@ -6,6 +6,7 @@
 * and more. 
 **/
 
+$settings['cache'] = false;
 $settings['utf8'] = false; // Encoding (Recommended TRUE)
 $settings['latest_bans'] = true;  // Latest Bans table
 $settings['latest_mutes'] = true; // Latest Mutes table
