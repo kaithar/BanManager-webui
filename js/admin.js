@@ -1,4 +1,4 @@
-/*  BanManagement © 2012, a web interface for the Bukkit plugin BanManager
+/*  BanManagement Â© 2012, a web interface for the Bukkit plugin BanManager
     by James Mortemore of http://www.frostcast.net
 	is licenced under a Creative Commons
 	Attribution-NonCommercial-ShareAlike 2.0 UK: England & Wales.
